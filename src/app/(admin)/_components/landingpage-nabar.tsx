@@ -5,7 +5,7 @@ import Link from "next/link"
 
 export const LandingPageNavBar = () => {
     return (
-        <div className="flex w-full justify-between items-center">
+        <div className="flex w-full justify-between items-center text-white">
             <div className="text-3xl font-semibold flex items-center gap-x-3">
                 <Menu className="w-8 h-8"/>
                 <Image
@@ -35,7 +35,7 @@ export const LandingPageNavBar = () => {
             <Link
             href="/auth/sign-in"
             >
-            <Button className="text-base flex gap-x-2">
+            <Button variant="secondary" className="text-base flex gap-x-2">
                 <User fill="#000"/>
                 Login
             </Button>
