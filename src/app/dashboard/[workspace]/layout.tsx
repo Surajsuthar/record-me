@@ -1,5 +1,16 @@
-import { onAuthenticateUse } from "@/actions/user";
-import { verifyAccessToWorkspace } from "@/actions/workspace";
+import { getNotifications, onAuthenticateUse } from "@/actions/user";
+import {
+  getAllUserVideos,
+  getWorkSpaceFolder,
+  getWorkspaces,
+  verifyAccessToWorkspace,
+} from "@/actions/workspace";
+import { Sidebar } from "@/components/sidebar/sidebar";
+import {
+  dehydrate,
+  HydrationBoundary,
+  QueryClient,
+} from "@tanstack/react-query";
 import { redirect } from "next/navigation";
 import React from "react";
 
@@ -23,5 +34,33 @@ export default async function Layout({
   if (!hashAccess.data?.workspace) {
     return null;
   }
-  return <div></div>;
+
+  const Query = new QueryClient();
+
+  await Query.prefetchQuery({
+    queryKey: ["workspace-folders"],
+    queryFn: () => getWorkSpaceFolder(workspaceId),
+  });
+
+  await Query.prefetchQuery({
+    queryKey: ["user-videos"],
+    queryFn: () => getAllUserVideos(workspaceId),
+  });
+
+  await Query.prefetchQuery({
+    queryKey: ["user-worksapces"],
+    queryFn: () => getWorkspaces(),
+  });
+
+  await Query.prefetchQuery({
+    queryKey: ["user-notification"],
+    queryFn: () => getNotifications(),
+  });
+  return (
+    <HydrationBoundary state={dehydrate(Query)}>
+      <div className="flex h-screen w-screen">
+        <Sidebar activeWorkSpaceId={workspaceId} />
+      </div>
+    </HydrationBoundary>
+  );
 }

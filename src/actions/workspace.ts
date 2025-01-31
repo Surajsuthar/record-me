@@ -43,3 +43,119 @@ export const verifyAccessToWorkspace = async (workspaceId: string) => {
     };
   }
 };
+
+export const getWorkSpaceFolder = async (workSpaceId: string) => {
+  try {
+    const isFolderExist = await db.folder.findMany({
+      where: {
+        workSpaceId,
+      },
+      include: {
+        _count: {
+          select: {
+            videos: true,
+          },
+        },
+      },
+    });
+
+    if (isFolderExist && isFolderExist.length > 0) {
+      return { staus: 200, data: isFolderExist };
+    }
+
+    return { status: 400, data: [] };
+  } catch (error) {
+    return { status: 403, data: [] };
+  }
+};
+
+export const getAllUserVideos = async (workSpaceId: string) => {
+  try {
+    const user = await currentUser();
+    if (!user) return { status: 404 };
+
+    const videos = await db.video.findMany({
+      where: {
+        OR: [{ workSpaceId }, { folderId: workSpaceId }],
+      },
+      select: {
+        id: true,
+        title: true,
+        createdAt: true,
+        source: true,
+        processing: true,
+        Folder: {
+          select: {
+            id: true,
+            name: true,
+          },
+        },
+        User: {
+          select: {
+            firstname: true,
+            lastname: true,
+            image: true,
+          },
+        },
+      },
+      orderBy: {
+        createdAt: "asc",
+      },
+    });
+
+    if (videos && videos.length > 0) {
+      return { status: 200, data: videos };
+    }
+
+    return { status: 400 };
+  } catch (error) {
+    return { status: 403 };
+  }
+};
+
+export const getWorkspaces = async () => {
+  try {
+    const user = await currentUser();
+
+    if (!user) return { status: 404 };
+
+    const workSpaces = await db.user.findUnique({
+      where: {
+        clerkid: user?.id,
+      },
+      select: {
+        subscription: {
+          select: {
+            plan: true,
+          },
+        },
+        workspace: {
+          select: {
+            id: true,
+            name: true,
+            type: true,
+          },
+        },
+        members: {
+          select: {
+            WorkSpace: {
+              select: {
+                id: true,
+                name: true,
+                type: true,
+              },
+            },
+          },
+        },
+      },
+    });
+
+    if (workSpaces) {
+      return { status: 200, data: workSpaces };
+    }
+
+    return { status: 400 };
+  } catch (error) {
+    return { status: 403 };
+  }
+};

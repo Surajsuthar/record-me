@@ -73,3 +73,33 @@ export const onAuthenticateUse = async () => {
     return { status: 400 };
   }
 };
+
+export const getNotifications = async () => {
+  try {
+    const user = await currentUser();
+
+    if (!user) return { status: 404 };
+
+    const notifications = await db.user.findUnique({
+      where: {
+        clerkid: user?.id,
+      },
+      select: {
+        notification: true,
+        _count: {
+          select: {
+            notification: true,
+          },
+        },
+      },
+    });
+
+    if (notifications && notifications.notification.length > 0) {
+      return { data: notifications };
+    }
+
+    return { status: 400, data: [] };
+  } catch (error) {
+    return { status: 403, data: [] };
+  }
+};
