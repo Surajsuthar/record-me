@@ -10,9 +10,12 @@ import {
   SelectValue,
 } from "@radix-ui/react-select";
 import { Separator } from "../ui/separator";
-import { userQueryData } from "@/hooks/userQueryData";
+import { useQueryData } from "@/hooks/userQueryData";
 import { getWorkspaces } from "@/actions/workspace";
 import { WorkspaceProps } from "@/types";
+import { Model } from "@/components/model/model";
+import { PlusCircle } from "lucide-react";
+import { Search } from "../search";
 
 interface Props {
   activeWorkSpaceId: string;
@@ -23,7 +26,7 @@ export const Sidebar = ({ activeWorkSpaceId }: Props) => {
   const onChangeActiveWorkSpcae = (value: string) => {
     router.push(`/dashboard/${value}`);
   };
-  const { data, isFetched } = userQueryData(["user-worksapces"], getWorkspaces);
+  const { data, isFetched } = useQueryData(["user-worksapces"], getWorkspaces);
 
   const { data: workspace } = data as WorkspaceProps;
   return (
@@ -63,6 +66,23 @@ export const Sidebar = ({ activeWorkSpaceId }: Props) => {
           </SelectGroup>
         </SelectContent>
       </Select>
+      <Model
+        title="Invite to workspace"
+        trigger={
+          <span
+            className="text-sm cursor-pointer flex items-center justify-center bg-neutral-800/90 hover:bg-neutral-800/60
+            w-full rounded-sm p-[5px] gap-2"
+          >
+            <PlusCircle className="text-neutral-800/90 fill-neutral-500" />
+            <span className="text-neutral-400 font-semibold text-sm">
+              Invite to workspace
+            </span>
+          </span>
+        }
+        description="Invite other user to workspace"
+      >
+        <Search workspaceId={activeWorkSpaceId} />
+      </Model>
     </div>
   );
 };

@@ -31,6 +31,7 @@ export const verifyAccessToWorkspace = async (workspaceId: string) => {
         ],
       },
     });
+    console.log("isUserInWorkSpace", isUserInWorkSpace);
 
     return {
       status: 200,
