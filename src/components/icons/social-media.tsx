@@ -28,5 +28,5 @@ export const SocialMedia = () => {
         </clipPath>
       </defs>
     </svg>
-  )
-}
+  );
+};

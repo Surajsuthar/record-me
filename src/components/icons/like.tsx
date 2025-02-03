@@ -12,5 +12,5 @@ export const Like = () => {
         fill="#AE4269"
       />
     </svg>
-  )
-}
+  );
+};

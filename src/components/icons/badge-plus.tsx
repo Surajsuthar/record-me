@@ -21,5 +21,5 @@ export const BadgePlus = () => {
         </clipPath>
       </defs>
     </svg>
-  )
-}
+  );
+};

@@ -12,5 +12,5 @@ export const Unlike = () => {
         fill="#545454"
       />
     </svg>
-  )
-}
+  );
+};

@@ -18,5 +18,5 @@ export const AffiliateDuoToneBlack = () => {
       />
       <circle cx="10" cy="7.5" r="4" fill="#292929" />
     </svg>
-  )
-}
+  );
+};

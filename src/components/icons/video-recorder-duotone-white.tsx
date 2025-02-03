@@ -1,7 +1,7 @@
 type Props = {
-  width?: string
-  height?: string
-}
+  width?: string;
+  height?: string;
+};
 
 const VideoRecorderDuotoneWhite = (props: Props) => {
   return (
@@ -25,7 +25,7 @@ const VideoRecorderDuotoneWhite = (props: Props) => {
         fill="#EAEAEA"
       />
     </svg>
-  )
-}
+  );
+};
 
-export default VideoRecorderDuotoneWhite
+export default VideoRecorderDuotoneWhite;

@@ -26,5 +26,5 @@ export const Links = () => {
         fill="#545454"
       />
     </svg>
-  )
-}
+  );
+};

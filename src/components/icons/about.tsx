@@ -7,18 +7,8 @@ export const About = () => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <circle
-        cx="12"
-        cy="12"
-        r="10"
-        fill="#292929"
-      />
-      <circle
-        cx="12"
-        cy="18"
-        r="1"
-        fill="#545454"
-      />
+      <circle cx="12" cy="12" r="10" fill="#292929" />
+      <circle cx="12" cy="18" r="1" fill="#545454" />
       <path
         fill-rule="evenodd"
         clipRule="evenodd"
@@ -26,5 +16,5 @@ export const About = () => {
         fill="#545454"
       />
     </svg>
-  )
-}
+  );
+};

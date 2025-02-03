@@ -12,5 +12,5 @@ export const Chat = () => {
         stroke="#FAFAFA"
       />
     </svg>
-  )
-}
+  );
+};

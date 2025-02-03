@@ -14,5 +14,5 @@ export const Logout = () => {
         stroke-linejoin="round"
       />
     </svg>
-  )
-}
+  );
+};

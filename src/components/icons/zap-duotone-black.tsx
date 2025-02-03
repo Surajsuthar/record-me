@@ -12,5 +12,5 @@ export const ZapDouToneBlack = () => {
         fill="#292929"
       />
     </svg>
-  )
-}
+  );
+};

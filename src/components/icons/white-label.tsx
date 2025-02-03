@@ -14,5 +14,5 @@ export const WhiteLabel = () => {
         stroke-linejoin="round"
       />
     </svg>
-  )
-}
+  );
+};

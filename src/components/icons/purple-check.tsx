@@ -18,5 +18,5 @@ export const PurpleCheck = () => {
         stroke-linejoin="round"
       />
     </svg>
-  )
-}
+  );
+};

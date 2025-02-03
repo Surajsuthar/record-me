@@ -7,14 +7,7 @@ export const CreditCard = () => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <rect
-        x="2"
-        y="4"
-        width="20"
-        height="16"
-        rx="3"
-        fill="#292929"
-      />
+      <rect x="2" y="4" width="20" height="16" rx="3" fill="#292929" />
       <path
         fill-rule="evenodd"
         clipRule="evenodd"
@@ -28,5 +21,5 @@ export const CreditCard = () => {
         fill="#545454"
       />
     </svg>
-  )
-}
+  );
+};

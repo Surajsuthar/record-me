@@ -12,5 +12,5 @@ export const Document = () => {
         stroke="#FAFAFA"
       />
     </svg>
-  )
-}
+  );
+};

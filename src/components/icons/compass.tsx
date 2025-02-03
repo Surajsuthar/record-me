@@ -18,5 +18,5 @@ export const Compass = () => {
         fill="#545454"
       />
     </svg>
-  )
-}
+  );
+};

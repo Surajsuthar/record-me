@@ -14,5 +14,5 @@ export const CarotSort = () => {
         stroke-width="0.891089"
       />
     </svg>
-  )
-}
+  );
+};

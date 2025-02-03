@@ -14,5 +14,5 @@ export const MegaPhone = () => {
         stroke-linejoin="round"
       />
     </svg>
-  )
-}
+  );
+};

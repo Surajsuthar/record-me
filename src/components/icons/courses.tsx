@@ -14,5 +14,5 @@ export const Courses = () => {
         stroke-linejoin="round"
       />
     </svg>
-  )
-}
+  );
+};

@@ -16,5 +16,5 @@ export const FileDuoToneWhite = () => {
         fill="#A0A0A0"
       />
     </svg>
-  )
-}
+  );
+};

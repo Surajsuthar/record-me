@@ -12,5 +12,5 @@ export const Heart = () => {
         stroke="#FAFAFA"
       />
     </svg>
-  )
-}
+  );
+};

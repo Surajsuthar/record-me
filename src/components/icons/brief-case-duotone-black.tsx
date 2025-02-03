@@ -7,22 +7,8 @@ export const BriefCaseDuoToneBlack = () => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <rect
-        x="2"
-        y="5"
-        width="20"
-        height="17"
-        rx="3"
-        fill="#292929"
-      />
-      <rect
-        x="10"
-        y="12"
-        width="4"
-        height="2"
-        rx="1"
-        fill="#545454"
-      />
+      <rect x="2" y="5" width="20" height="17" rx="3" fill="#292929" />
+      <rect x="10" y="12" width="4" height="2" rx="1" fill="#545454" />
       <path
         fill-rule="evenodd"
         clipRule="evenodd"
@@ -30,5 +16,5 @@ export const BriefCaseDuoToneBlack = () => {
         fill="#545454"
       />
     </svg>
-  )
-}
+  );
+};

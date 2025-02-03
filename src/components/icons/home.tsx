@@ -19,5 +19,5 @@ export const Home = ({ ...props }) => {
         fill="#545454"
       />
     </svg>
-  )
-}
+  );
+};

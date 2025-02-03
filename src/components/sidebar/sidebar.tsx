@@ -1,13 +1,13 @@
 "use client";
 import Image from "next/image";
-import { 
-  Select, 
+import {
+  Select,
   SelectItem,
   SelectContent,
   SelectGroup,
   SelectLabel,
   SelectTrigger,
-  SelectValue 
+  SelectValue,
 } from "@/components/ui/select";
 import { usePathname, useRouter } from "next/navigation";
 import { Separator } from "../ui/separator";
@@ -36,15 +36,20 @@ export const Sidebar = ({ activeWorkSpaceId }: Props) => {
 
   const onChangeActiveWorkSpcae = (value: string) => {
     router.push(`/dashboard/${value}`);
-  };  
+  };
   const { data, isFetched } = useQueryData(["user-worksapces"], getWorkspaces);
-  const { data: notification } = useQueryData(['user-notification'],getNotifications)
+  const { data: notification } = useQueryData(
+    ["user-notification"],
+    getNotifications,
+  );
 
   const { data: workspace } = data as WorkspaceProps;
-  const { data: count } = notification as NotificationProp
+  const { data: count } = notification as NotificationProp;
 
-  const menuItem = MENU_ITEMS(activeWorkSpaceId)
-  const currentWorkspace = workspace.workspace.find((s) => s.id===activeWorkSpaceId)
+  const menuItem = MENU_ITEMS(activeWorkSpaceId);
+  const currentWorkspace = workspace.workspace.find(
+    (s) => s.id === activeWorkSpaceId,
+  );
 
   return (
     <div className="bg-[#111111] flex-none relative p-4 h-full w-[250px] flex flex-col gap-4 items-center overflow-hidden">
@@ -83,100 +88,107 @@ export const Sidebar = ({ activeWorkSpaceId }: Props) => {
           </SelectGroup>
         </SelectContent>
       </Select>
-      { currentWorkspace && currentWorkspace?.type === 'PUBLIC' &&
-        workspace.subscription?.plan === 'PRO' && 
-      <Model
-        title="Invite to workspace"
-        trigger={
-          <span
-            className="text-sm cursor-pointer flex items-center justify-center bg-neutral-800/90 hover:bg-neutral-800/60
+      {currentWorkspace &&
+        currentWorkspace?.type === "PUBLIC" &&
+        workspace.subscription?.plan === "PRO" && (
+          <Model
+            title="Invite to workspace"
+            trigger={
+              <span
+                className="text-sm cursor-pointer flex items-center justify-center bg-neutral-800/90 hover:bg-neutral-800/60
             w-full rounded-sm p-[5px] gap-2"
+              >
+                <PlusCircle className="text-neutral-800/90 fill-neutral-500" />
+                <span className="text-neutral-400 font-semibold text-sm">
+                  Invite to workspace
+                </span>
+              </span>
+            }
+            description="Invite other user to workspace"
           >
-            <PlusCircle className="text-neutral-800/90 fill-neutral-500" />
-            <span className="text-neutral-400 font-semibold text-sm">
-              Invite to workspace
-            </span>
-          </span>
-        }
-        description="Invite other user to workspace"
-      >
-        <Search workspaceId={activeWorkSpaceId} />
-      </Model>}
+            <Search workspaceId={activeWorkSpaceId} />
+          </Model>
+        )}
       <p className="w-full text-[#9d9d9d] font-bold mt-4">Menu</p>
       <nav className="w-full">
-        <ul>{menuItem.map((item) => (
-          <SidebarItem 
-          href={item.href}
-          icon={item.icon}
-          title={item.title}
-          selected={pathname === item.href}
-          key={item.href}
-          notification={
-            (item.title=='Notification' && count._count && count._count.notification ) || 0
-          }
-          />
-        ))}</ul>
-      </nav>
-      <Separator className="w-4/5"/>
-      <p className="w-full text-[#9d9d9d] font-bold mt-4"> Workspace </p>
-      { workspace.workspace.length === 1 && workspace.members.length === 0 && (
-        <div className="w-full mt-[-10px]">
-          <p className="text-[#9d9d9d] font-medium text-sm">
-            {workspace.subscription?.plan === 'FREE' 
-              ? 'Upgrade to create workspace'
-              : 'No workspace'
-            }
-          </p>
-        </div>
-      ) }
-      <nav className="w-full">
-        <ul className="h-[140px] overflow-auto overflow-x-hidden fade-layer">
-          {workspace.workspace.length > 0 && workspace.workspace.map((item) => (
-            item.type!== 'PERSONAL' && (
-              <SidebarItem
-              href={`/dashboard/${item.id}`}
-              selected = { pathname === `/dashboard/${item.id}` }
-              title={item.name}
-              notification={0}
-              key={item.id}
-              icon={
-              <WorkSpacePlacehold>
-                {item.name.charAt(0)}
-              </WorkSpacePlacehold>}
-              />
-            )
-          ))}
-          {workspace.members.length > 0 && workspace.members.map((item) => (
-             <SidebarItem
-             href={`/dashboard/${item.WorkSpace.id}`}
-             selected = { pathname === `/dashboard/${item.WorkSpace.id}` }
-             title={item.WorkSpace.name}
-             notification={0}
-             key={item.WorkSpace.id}
-             icon={
-             <WorkSpacePlacehold>
-               {item.WorkSpace.name.charAt(0)}
-             </WorkSpacePlacehold>}
-             />
+        <ul>
+          {menuItem.map((item) => (
+            <SidebarItem
+              href={item.href}
+              icon={item.icon}
+              title={item.title}
+              selected={pathname === item.href}
+              key={item.href}
+              notification={
+                (item.title == "Notification" &&
+                  count._count &&
+                  count._count.notification) ||
+                0
+              }
+            />
           ))}
         </ul>
       </nav>
-      <Separator className="w-4/5 "/>
-      {workspace.subscription?.plan === 'FREE' &&
+      <Separator className="w-4/5" />
+      <p className="w-full text-[#9d9d9d] font-bold mt-4"> Workspace </p>
+      {workspace.workspace.length === 1 && workspace.members.length === 0 && (
+        <div className="w-full mt-[-10px]">
+          <p className="text-[#9d9d9d] font-medium text-sm">
+            {workspace.subscription?.plan === "FREE"
+              ? "Upgrade to create workspace"
+              : "No workspace"}
+          </p>
+        </div>
+      )}
+      <nav className="w-full">
+        <ul className="h-[140px] overflow-auto overflow-x-hidden fade-layer">
+          {workspace.workspace.length > 0 &&
+            workspace.workspace.map(
+              (item) =>
+                item.type !== "PERSONAL" && (
+                  <SidebarItem
+                    href={`/dashboard/${item.id}`}
+                    selected={pathname === `/dashboard/${item.id}`}
+                    title={item.name}
+                    notification={0}
+                    key={item.id}
+                    icon={
+                      <WorkSpacePlacehold>
+                        {item.name.charAt(0)}
+                      </WorkSpacePlacehold>
+                    }
+                  />
+                ),
+            )}
+          {workspace.members.length > 0 &&
+            workspace.members.map((item) => (
+              <SidebarItem
+                href={`/dashboard/${item.WorkSpace.id}`}
+                selected={pathname === `/dashboard/${item.WorkSpace.id}`}
+                title={item.WorkSpace.name}
+                notification={0}
+                key={item.WorkSpace.id}
+                icon={
+                  <WorkSpacePlacehold>
+                    {item.WorkSpace.name.charAt(0)}
+                  </WorkSpacePlacehold>
+                }
+              />
+            ))}
+        </ul>
+      </nav>
+      <Separator className="w-4/5 " />
+      {workspace.subscription?.plan === "FREE" && (
         <GlobalCard
-        title="Upgrade to pro"
-        description="Unlock AI features like transcription, AI summary, and more."
-        footer={
-          <Button className="text-sm w-full">
-              <Loader
-              state={false}
-              >
-                Upgrade
-              </Loader>
-          </Button>
-        }
+          title="Upgrade to pro"
+          description="Unlock AI features like transcription, AI summary, and more."
+          footer={
+            <Button className="text-sm w-full">
+              <Loader state={false}>Upgrade</Loader>
+            </Button>
+          }
         />
-      }
+      )}
     </div>
   );
 };

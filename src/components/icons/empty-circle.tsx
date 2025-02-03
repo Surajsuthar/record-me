@@ -12,5 +12,5 @@ export const EmptyCircle = () => {
         stroke="#50545D"
       />
     </svg>
-  )
-}
+  );
+};

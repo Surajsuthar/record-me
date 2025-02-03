@@ -8,10 +8,7 @@ export const Grid = () => {
       xmlns="http://www.w3.org/2000/svg"
     >
       <g clip-path="url(#clip0_7668_20089)">
-        <mask
-          id="path-1-inside-1_7668_20089"
-          fill="white"
-        >
+        <mask id="path-1-inside-1_7668_20089" fill="white">
           <path
             fill-rule="evenodd"
             clipRule="evenodd"
@@ -29,13 +26,9 @@ export const Grid = () => {
       </g>
       <defs>
         <clipPath id="clip0_7668_20089">
-          <rect
-            width="16"
-            height="16"
-            fill="white"
-          />
+          <rect width="16" height="16" fill="white" />
         </clipPath>
       </defs>
     </svg>
-  )
-}
+  );
+};

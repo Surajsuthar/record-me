@@ -14,5 +14,5 @@ export const Bell = ({ ...props }) => {
         fill="#292929"
       />
     </svg>
-  )
-}
+  );
+};

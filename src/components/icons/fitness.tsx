@@ -21,5 +21,5 @@ export const Fitness = () => {
         </clipPath>
       </defs>
     </svg>
-  )
-}
+  );
+};

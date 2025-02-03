@@ -20,5 +20,5 @@ export const MegaPhoneDuoToneWhite = () => {
         fill="#CBCBCB"
       />
     </svg>
-  )
-}
+  );
+};

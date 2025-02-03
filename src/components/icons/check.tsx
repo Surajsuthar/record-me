@@ -12,5 +12,5 @@ export const Check = () => {
         stroke="#80B53D"
       />
     </svg>
-  )
-}
+  );
+};

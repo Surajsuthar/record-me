@@ -18,5 +18,5 @@ export const Settings = () => {
         fill="#545454"
       />
     </svg>
-  )
-}
+  );
+};

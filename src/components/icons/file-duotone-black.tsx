@@ -1,7 +1,7 @@
 type Props = {
-  width?: string
-  height?: string
-}
+  width?: string;
+  height?: string;
+};
 
 export const FileDuoToneBlack = (props: Props) => {
   return (
@@ -21,5 +21,5 @@ export const FileDuoToneBlack = (props: Props) => {
         fill="#545454"
       />
     </svg>
-  )
-}
+  );
+};

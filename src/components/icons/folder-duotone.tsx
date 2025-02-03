@@ -1,4 +1,4 @@
-type Props = {}
+type Props = {};
 
 const FolderDuotone = (props: Props) => {
   return (
@@ -15,7 +15,7 @@ const FolderDuotone = (props: Props) => {
       />
       <rect x="2" y="7" width="20" height="14" rx="3" fill="#707070" />
     </svg>
-  )
-}
+  );
+};
 
-export default FolderDuotone
+export default FolderDuotone;

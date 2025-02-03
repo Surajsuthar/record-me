@@ -25,5 +25,5 @@ export const Google = () => {
         </clipPath>
       </defs>
     </svg>
-  )
-}
+  );
+};
