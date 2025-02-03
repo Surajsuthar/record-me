@@ -1,48 +1,65 @@
 "use client";
 import Image from "next/image";
-import { Select, SelectItem } from "@/components/ui/select";
-import { useRouter } from "next/navigation";
-import {
+import { 
+  Select, 
+  SelectItem,
   SelectContent,
   SelectGroup,
   SelectLabel,
   SelectTrigger,
-  SelectValue,
-} from "@radix-ui/react-select";
+  SelectValue 
+} from "@/components/ui/select";
+import { usePathname, useRouter } from "next/navigation";
 import { Separator } from "../ui/separator";
 import { useQueryData } from "@/hooks/userQueryData";
 import { getWorkspaces } from "@/actions/workspace";
-import { WorkspaceProps } from "@/types";
+import { NotificationProp, WorkspaceProps } from "@/types";
 import { Model } from "@/components/model/model";
 import { PlusCircle } from "lucide-react";
 import { Search } from "../search";
+import { MENU_ITEMS } from "@/constants";
+import { SidebarItem } from "./sidebar-item";
+import { getNotifications } from "@/actions/user";
+import { WorkSpacePlacehold } from "./workspace-placeholder";
+import { GlobalCard } from "../global-card";
+import { Button } from "../ui/button";
+import { Loader } from "../loader";
 
 interface Props {
   activeWorkSpaceId: string;
 }
 
 export const Sidebar = ({ activeWorkSpaceId }: Props) => {
+  //upgrade
   const router = useRouter();
+  const pathname = usePathname();
+
   const onChangeActiveWorkSpcae = (value: string) => {
     router.push(`/dashboard/${value}`);
-  };
+  };  
   const { data, isFetched } = useQueryData(["user-worksapces"], getWorkspaces);
+  const { data: notification } = useQueryData(['user-notification'],getNotifications)
 
   const { data: workspace } = data as WorkspaceProps;
+  const { data: count } = notification as NotificationProp
+
+  const menuItem = MENU_ITEMS(activeWorkSpaceId)
+  const currentWorkspace = workspace.workspace.find((s) => s.id===activeWorkSpaceId)
+
   return (
     <div className="bg-[#111111] flex-none relative p-4 h-full w-[250px] flex flex-col gap-4 items-center overflow-hidden">
-      <div className="bg-[#111111] p-4 gap-2 justify-center items-center mb-4 absolute top-0 left-0 right-0">
-        <Image src="/logo.svg" height={40} width={40} alt="logo" />
-        <p className="text-2xl">Record me</p>
+      <div className="bg-[#111111] p-4 gap-2 flex justify-center items-center mb-4 absolute top-0 left-0 right-0">
+        <Image src="/logo.svg" height={30} width={30} alt="logo" />
+        <p className="text-xl text-white">Record me</p>
       </div>
       <Select
         defaultValue={activeWorkSpaceId}
         onValueChange={onChangeActiveWorkSpcae}
       >
-        <SelectTrigger className="mt-16 text-neutral-400 bg-transparent">
+        <SelectTrigger className="mt-16 text-white bg-transparent">
           <SelectValue placeholder="Select a workspace"></SelectValue>
         </SelectTrigger>
-        <SelectContent className="bg-[#111111] backdrop-blur-xl">
+        <SelectContent className=" backdrop-blur-xl">
           <SelectGroup>
             <SelectLabel>Workspace</SelectLabel>
             <Separator />
@@ -66,6 +83,8 @@ export const Sidebar = ({ activeWorkSpaceId }: Props) => {
           </SelectGroup>
         </SelectContent>
       </Select>
+      { currentWorkspace && currentWorkspace?.type === 'PUBLIC' &&
+        workspace.subscription?.plan === 'PRO' && 
       <Model
         title="Invite to workspace"
         trigger={
@@ -82,7 +101,82 @@ export const Sidebar = ({ activeWorkSpaceId }: Props) => {
         description="Invite other user to workspace"
       >
         <Search workspaceId={activeWorkSpaceId} />
-      </Model>
+      </Model>}
+      <p className="w-full text-[#9d9d9d] font-bold mt-4">Menu</p>
+      <nav className="w-full">
+        <ul>{menuItem.map((item) => (
+          <SidebarItem 
+          href={item.href}
+          icon={item.icon}
+          title={item.title}
+          selected={pathname === item.href}
+          key={item.href}
+          notification={
+            (item.title=='Notification' && count._count && count._count.notification ) || 0
+          }
+          />
+        ))}</ul>
+      </nav>
+      <Separator className="w-4/5"/>
+      <p className="w-full text-[#9d9d9d] font-bold mt-4"> Workspace </p>
+      { workspace.workspace.length === 1 && workspace.members.length === 0 && (
+        <div className="w-full mt-[-10px]">
+          <p className="text-[#9d9d9d] font-medium text-sm">
+            {workspace.subscription?.plan === 'FREE' 
+              ? 'Upgrade to create workspace'
+              : 'No workspace'
+            }
+          </p>
+        </div>
+      ) }
+      <nav className="w-full">
+        <ul className="h-[140px] overflow-auto overflow-x-hidden fade-layer">
+          {workspace.workspace.length > 0 && workspace.workspace.map((item) => (
+            item.type!== 'PERSONAL' && (
+              <SidebarItem
+              href={`/dashboard/${item.id}`}
+              selected = { pathname === `/dashboard/${item.id}` }
+              title={item.name}
+              notification={0}
+              key={item.id}
+              icon={
+              <WorkSpacePlacehold>
+                {item.name.charAt(0)}
+              </WorkSpacePlacehold>}
+              />
+            )
+          ))}
+          {workspace.members.length > 0 && workspace.members.map((item) => (
+             <SidebarItem
+             href={`/dashboard/${item.WorkSpace.id}`}
+             selected = { pathname === `/dashboard/${item.WorkSpace.id}` }
+             title={item.WorkSpace.name}
+             notification={0}
+             key={item.WorkSpace.id}
+             icon={
+             <WorkSpacePlacehold>
+               {item.WorkSpace.name.charAt(0)}
+             </WorkSpacePlacehold>}
+             />
+          ))}
+        </ul>
+      </nav>
+      <Separator className="w-4/5 "/>
+      {workspace.subscription?.plan === 'FREE' &&
+        <GlobalCard
+        title="Upgrade to pro"
+        description="Unlock AI features like transcription, AI summary, and more."
+        footer={
+          <Button className="text-sm w-full">
+              <Loader
+              state={false}
+              >
+                Upgrade
+              </Loader>
+          </Button>
+        }
+        />
+      }
     </div>
   );
 };

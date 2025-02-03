@@ -63,8 +63,8 @@ export default async function Layout({
     <HydrationBoundary state={dehydrate(Query)}>
       <div className="flex h-screen w-screen">
         <Sidebar activeWorkSpaceId={workspaceId} />
+        <div className="mt-4">{children}</div>
       </div>
-      {children}
     </HydrationBoundary>
   );
 }
