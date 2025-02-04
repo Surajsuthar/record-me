@@ -15,6 +15,7 @@ interface Props {
 }
 
 export const GlobalCard = ({ title, description, children, footer }: Props) => {
+  console.log(footer);
   return (
     <Card className="bg-transparent mt-4">
       <CardHeader className="p-4">
@@ -24,7 +25,7 @@ export const GlobalCard = ({ title, description, children, footer }: Props) => {
         </CardDescription>
       </CardHeader>
       {children && <div className="p-4">{children}</div>}
-      {footer && <CardFooter className="p-4">{footer}</CardFooter>}
+      <CardFooter className="p-4">{footer}</CardFooter>
     </Card>
   );
 };

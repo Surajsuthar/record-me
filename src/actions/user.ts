@@ -142,3 +142,49 @@ export const searchUsers = async (query: string) => {
     return { status: 500, data: undefined };
   }
 };
+
+export const CreateWorkspace = async (name: string) => {
+  try {
+    const user = await currentUser();
+
+    if (!user) return { status: 404 };
+
+    const autorized = await db.user.findUnique({
+      where: {
+        clerkid: user.id,
+      },
+      select: {
+        subscription: {
+          select: {
+            plan: true,
+          },
+        },
+      },
+    });
+
+    if (autorized?.subscription?.plan === "PRO") {
+      const workSpace = await db.user.update({
+        where: {
+          clerkid: user.id,
+        },
+        data: {
+          workspace: {
+            create: {
+              name,
+              type: "PUBLIC",
+            },
+          },
+        },
+      });
+
+      if (workSpace) return { status: 200, data: "workspace created" };
+    }
+
+    return {
+      status: 401,
+      data: "You are not authorizes",
+    };
+  } catch (error) {
+    return { status: 403 };
+  }
+};

@@ -5,6 +5,7 @@ import {
   getWorkspaces,
   verifyAccessToWorkspace,
 } from "@/actions/workspace";
+import { GlobleHeader } from "@/components/global-header";
 import { Sidebar } from "@/components/sidebar/sidebar";
 import {
   dehydrate,
@@ -27,9 +28,9 @@ export default async function Layout({
   if (!auth.user?.workspace) return redirect("/auth/sign-in");
   if (!auth.user.workspace.length) redirect("/auth/sign-in");
 
-  console.log("workspaceId", workspaceId);
+  // console.log("workspaceId", workspaceId);
   const hashAccess = await verifyAccessToWorkspace(workspaceId);
-  console.log("hashAccess", hashAccess);
+  // console.log("hashAccess", hashAccess);
 
   if (hashAccess.status !== 200) {
     redirect(`/dashboard/${auth.user?.workspace[0].id}`);
@@ -63,7 +64,10 @@ export default async function Layout({
     <HydrationBoundary state={dehydrate(Query)}>
       <div className="flex h-screen w-screen">
         <Sidebar activeWorkSpaceId={workspaceId} />
-        <div className="mt-4">{children}</div>
+        <div className="w-full pt-28 p-6 overflow-y-scroll overflow-x-hidden">
+          <GlobleHeader workspace={hashAccess.data.workspace} />
+          <div className="mt-4">{children}</div>
+        </div>
       </div>
     </HydrationBoundary>
   );

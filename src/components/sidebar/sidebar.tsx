@@ -11,19 +11,21 @@ import {
 } from "@/components/ui/select";
 import { usePathname, useRouter } from "next/navigation";
 import { Separator } from "../ui/separator";
-import { useQueryData } from "@/hooks/userQueryData";
+import { useQueryData } from "@/hooks/useQueryData";
 import { getWorkspaces } from "@/actions/workspace";
 import { NotificationProp, WorkspaceProps } from "@/types";
 import { Model } from "@/components/model/model";
-import { PlusCircle } from "lucide-react";
+import { Menu, PlusCircle } from "lucide-react";
 import { Search } from "../search";
 import { MENU_ITEMS } from "@/constants";
 import { SidebarItem } from "./sidebar-item";
 import { getNotifications } from "@/actions/user";
 import { WorkSpacePlacehold } from "./workspace-placeholder";
 import { GlobalCard } from "../global-card";
-import { Button } from "../ui/button";
+import { Button } from "@/components/ui/button";
 import { Loader } from "../loader";
+import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
+import { InfoBar } from "../infobar";
 
 interface Props {
   activeWorkSpaceId: string;
@@ -51,7 +53,7 @@ export const Sidebar = ({ activeWorkSpaceId }: Props) => {
     (s) => s.id === activeWorkSpaceId,
   );
 
-  return (
+  const sideBarOptions = (
     <div className="bg-[#111111] flex-none relative p-4 h-full w-[250px] flex flex-col gap-4 items-center overflow-hidden">
       <div className="bg-[#111111] p-4 gap-2 flex justify-center items-center mb-4 absolute top-0 left-0 right-0">
         <Image src="/logo.svg" height={30} width={30} alt="logo" />
@@ -64,8 +66,8 @@ export const Sidebar = ({ activeWorkSpaceId }: Props) => {
         <SelectTrigger className="mt-16 text-white bg-transparent">
           <SelectValue placeholder="Select a workspace"></SelectValue>
         </SelectTrigger>
-        <SelectContent className=" backdrop-blur-xl">
-          <SelectGroup>
+        <SelectContent className="bg-gray-600 backdrop-blur-xl">
+          <SelectGroup className="gap-x-1">
             <SelectLabel>Workspace</SelectLabel>
             <Separator />
             {workspace.workspace.map((workspace) => (
@@ -78,6 +80,7 @@ export const Sidebar = ({ activeWorkSpaceId }: Props) => {
                 (workspace) =>
                   workspace.WorkSpace && (
                     <SelectItem
+                      className="mt-1"
                       value={workspace.WorkSpace.id}
                       key={workspace.WorkSpace.id}
                     >
@@ -189,6 +192,27 @@ export const Sidebar = ({ activeWorkSpaceId }: Props) => {
           }
         />
       )}
+    </div>
+  );
+
+  return (
+    <div className="w-full">
+      {/* INFOBAR */}
+      <InfoBar />
+      {/* SHEETMOBILE AND DESKTOP */}
+      <div className="md:hidden fixed my-4">
+        <Sheet>
+          <SheetTrigger asChild className="ml-2">
+            <Button variant="ghost" className="mt-[12px]">
+              <Menu />
+            </Button>
+          </SheetTrigger>
+          <SheetContent side={"left"} className="p-0 w-fit h-full">
+            {sideBarOptions}
+          </SheetContent>
+        </Sheet>
+      </div>
+      <div className="md:block hidden h-full">{sideBarOptions}</div>
     </div>
   );
 };
