@@ -1,11 +1,14 @@
+import { CreateFolders } from "@/components/create-folders";
 import { CreateWorkspace } from "@/components/create-workspace";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Folders } from "@/components/folders";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 interface Props {
-  params: { workspace: string };
+  params: { workspaceId: string };
 }
 
-export default function Home({ params }: Props) {
+export default async function Home({ params }: Props) {
+  const { workspaceId } = await params;
   return (
     <div>
       <Tabs defaultValue="videos" className="mt-6">
@@ -26,8 +29,14 @@ export default function Home({ params }: Props) {
           </TabsList>
           <div className="flex gap-x-3">
             <CreateWorkspace />
+            <CreateFolders workspaceId={workspaceId} />
           </div>
         </div>
+        <section className="py-4">
+          <TabsContent value="videos">
+            <Folders workspaceId={workspaceId} />
+          </TabsContent>
+        </section>
       </Tabs>
     </div>
   );

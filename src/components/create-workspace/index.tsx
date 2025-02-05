@@ -8,6 +8,8 @@ import { WorkspaceForm } from "../forms/workspace-from";
 
 export const CreateWorkspace = () => {
   const { data } = useQueryData(["user-workspace"], getWorkspaces);
+  console.log("data", data);
+  // @ts-ignore
   const { data: plan } = data as {
     status: number;
     data: {
@@ -17,7 +19,7 @@ export const CreateWorkspace = () => {
     };
   };
 
-  if (plan.subscription?.plan === "FREE") {
+  if (plan?.subscription?.plan === "FREE") {
     return <></>;
   }
 

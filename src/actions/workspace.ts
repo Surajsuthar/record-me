@@ -120,9 +120,9 @@ export const getWorkspaces = async () => {
 
     if (!user) return { status: 404 };
 
-    const workSpaces = await db.user.findUnique({
+    const workspaces = await db.user.findUnique({
       where: {
-        clerkid: user?.id,
+        clerkid: user.id,
       },
       select: {
         subscription: {
@@ -151,12 +151,32 @@ export const getWorkspaces = async () => {
       },
     });
 
-    if (workSpaces) {
-      return { status: 200, data: workSpaces };
+    if (workspaces) {
+      return { status: 200, data: workspaces };
     }
 
     return { status: 400 };
   } catch (error) {
     return { status: 403 };
+  }
+};
+
+export const renameFolder = async (id: string, name: string) => {
+  try {
+    const foldername = await db.folder.update({
+      where: {
+        id: id,
+      },
+      data: {
+        name,
+      },
+    });
+
+    if (foldername) {
+      return { status: 200, data: "Folder Renamed" };
+    }
+    return { status: 400, data: "Folder does not exist" };
+  } catch (error) {
+    return { status: 500, data: "Opps! something went wrong" };
   }
 };

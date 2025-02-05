@@ -20,10 +20,8 @@ interface props {
   children: React.ReactNode;
 }
 
-export default async function Layout({
-  params: { workspaceId },
-  children,
-}: props) {
+export default async function Layout({ params, children }: props) {
+  const { workspaceId } = await params;
   const auth = await onAuthenticateUse();
   if (!auth.user?.workspace) return redirect("/auth/sign-in");
   if (!auth.user.workspace.length) redirect("/auth/sign-in");
