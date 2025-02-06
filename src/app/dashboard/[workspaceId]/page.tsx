@@ -12,7 +12,7 @@ export default async function Home({ params }: Props) {
   return (
     <div>
       <Tabs defaultValue="videos" className="mt-6">
-        <div className="flex w-full justify-center items-center">
+        <div className="flex w-full justify-between items-center">
           <TabsList className="bg-transparent gap-2 pl-0">
             <TabsTrigger
               className="p-[13px] px-6 rounded-full data-[state=active]:bg-[#252525]"

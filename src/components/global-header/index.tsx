@@ -14,7 +14,7 @@ export const GlobleHeader = ({ workspace }: Props) => {
       <span className="text-sm text-[#707070]">
         {workspace.type.toLocaleUpperCase()}
       </span>
-      <h1 className="text-4xl font-bold">
+      <h1 className="text-4xl text-white font-bold">
         {pathname && pathname.includes("folder")
           ? pathname.charAt(0).toUpperCase() + pathname.slice(1).toLowerCase()
           : "My Libary"}

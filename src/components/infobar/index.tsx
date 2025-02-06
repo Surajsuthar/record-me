@@ -6,11 +6,11 @@ import { UserButton } from "@clerk/nextjs";
 
 export const InfoBar = () => {
   return (
-    <header className="pl-20 md:pl-[256px] p-4 fixed w-full flex items-center justify-center gap-4">
+    <header className="pl-20 md:pl-[260px] p-4 fixed w-full flex items-center justify-between gap-4">
       <div className="flex gap-4 justify-center items-center rounded-full border-2 px-4 w-full max-w-lg">
         <Search size={25} className="text-[#707070]" />
         <Input
-          className="bg-transparent border-none !placeholder-neutral-500"
+          className="bg-transparent text-white border-none !placeholder-neutral-500"
           placeholder="Search for people , project, tags and folders"
         />
       </div>

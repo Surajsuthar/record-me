@@ -10,11 +10,13 @@ export const useQueryData = (
   queryFn: QueryFunction,
   enabled?: Enabled,
 ) => {
-  const { data, isPending, isFetched, refetch, isFetching } = useQuery({
-    queryKey,
-    queryFn,
-    enabled,
-  });
+  const { data, isPending, isFetched, refetch, isFetching, isError } = useQuery(
+    {
+      queryKey,
+      queryFn,
+      enabled,
+    },
+  );
 
-  return { data, isPending, isFetched, refetch, isFetching };
+  return { data, isPending, isFetched, refetch, isFetching, isError };
 };

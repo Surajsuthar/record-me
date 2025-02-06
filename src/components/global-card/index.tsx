@@ -15,17 +15,16 @@ interface Props {
 }
 
 export const GlobalCard = ({ title, description, children, footer }: Props) => {
-  console.log(footer);
   return (
     <Card className="bg-transparent mt-4">
       <CardHeader className="p-4">
-        <CardTitle className="text-md text-[#9d9d9d]">{title}</CardTitle>
+        <CardTitle className="text-md text-[#9D9D9D]">{title}</CardTitle>
         <CardDescription className="text-[#707070]">
           {description}
         </CardDescription>
       </CardHeader>
       {children && <div className="p-4">{children}</div>}
-      <CardFooter className="p-4">{footer}</CardFooter>
+      {footer && <CardFooter className="p-4">{footer}</CardFooter>}
     </Card>
   );
 };

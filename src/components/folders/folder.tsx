@@ -7,6 +7,7 @@ import FolderDuotone from "../icons/folder-duotone";
 import React, { useRef, useState } from "react";
 import { useMutationData } from "@/hooks/useMutationData";
 import { renameFolder } from "@/actions/workspace";
+import { Input } from "../ui/input";
 
 interface Props {
   name: string;
@@ -36,26 +37,61 @@ export const Folder = ({ name, id, optimistic, count }: Props) => {
   );
 
   const handleFolerclick = () => {
+    if (onRename) return;
     router.push(`${pathname}/folder/${id}`);
   };
 
   const handleDoubleClick = (e: React.MouseEvent<HTMLParagraphElement>) => {
     e.stopPropagation();
+    Rename();
     // rename functionality
+  };
+
+  const updateFolderName = (e: React.FocusEvent<HTMLInputElement>) => {
+    if (inputRef.current && folderCardRef.current) {
+      if (
+        !inputRef.current.contains(e.target as Node | null) &&
+        !folderCardRef.current.contains(e.target as Node | null)
+      ) {
+        if (inputRef.current.value) {
+          mutate({ name: inputRef.current.value });
+        } else {
+          Renamed();
+        }
+      }
+    }
   };
 
   return (
     <div
+      ref={folderCardRef}
       onClick={handleFolerclick}
       className={cn(
+        optimistic && "opacity-60",
         "flex hover:bg-neutral-800 cursor-pointer transition duration-150 items-center gap-2 justify-between min-w-[250px] py-4 px-4 rounded-lg  border-[1px]",
       )}
     >
       <Loader state={false}>
         <div className="flex flex-col gap-[1px]">
-          <p className="text-neutral-300" onDoubleClick={handleDoubleClick}>
-            {name}
-          </p>
+          {onRename ? (
+            <Input
+              onBlur={(e: React.FocusEvent<HTMLInputElement>) =>
+                updateFolderName(e)
+              }
+              autoFocus
+              placeholder={name}
+              className="border-none underline text-base w-full outline-none text-neutral-300 bg-transparent p-0"
+              ref={inputRef}
+            />
+          ) : (
+            <p
+              className="text-neutral-300"
+              onDoubleClick={handleDoubleClick}
+              onClick={(e) => e.stopPropagation()}
+            >
+              {name}
+            </p>
+          )}
           <span className="text-sm text-neutral-500">{count || 0} Videos</span>
         </div>
       </Loader>

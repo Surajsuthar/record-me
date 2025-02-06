@@ -54,7 +54,7 @@ export const Sidebar = ({ activeWorkSpaceId }: Props) => {
   );
 
   const sideBarOptions = (
-    <div className="bg-[#111111] flex-none relative p-4 h-full w-[250px] flex flex-col gap-4 items-center overflow-hidden">
+    <div className="bg-[#111111] flex-none fixed p-4 h-full w-[250px] flex flex-col gap-4 items-center overflow-y-auto">
       <div className="bg-[#111111] p-4 gap-2 flex justify-center items-center mb-4 absolute top-0 left-0 right-0">
         <Image src="/logo.svg" height={30} width={30} alt="logo" />
         <p className="text-xl text-white">Record me</p>
@@ -186,7 +186,7 @@ export const Sidebar = ({ activeWorkSpaceId }: Props) => {
           title="Upgrade to pro"
           description="Unlock AI features like transcription, AI summary, and more."
           footer={
-            <Button className="text-sm w-full">
+            <Button className="text-sm bg-[#9d9d9d] w-full">
               <Loader state={false}>Upgrade</Loader>
             </Button>
           }

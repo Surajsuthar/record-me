@@ -7,9 +7,11 @@ import FolderPlusDuotine from "../icons/folder-plus-duotone";
 import { WorkspaceForm } from "../forms/workspace-from";
 
 export const CreateWorkspace = () => {
-  const { data } = useQueryData(["user-workspace"], getWorkspaces);
+  const { data, isError, isFetched, isFetching } = useQueryData(
+    ["user-worksapces"],
+    getWorkspaces,
+  );
   console.log("data", data);
-  // @ts-ignore
   const { data: plan } = data as {
     status: number;
     data: {
