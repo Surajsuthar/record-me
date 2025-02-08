@@ -10,7 +10,7 @@ interface Props {
   workspaceId: string;
 }
 
-interface FolderProps {
+export interface FolderProps {
   status: number;
   data: ({
     _count: {

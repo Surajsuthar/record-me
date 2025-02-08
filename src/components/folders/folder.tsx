@@ -5,7 +5,10 @@ import { usePathname, useRouter } from "next/navigation";
 import { Loader } from "../loader";
 import FolderDuotone from "../icons/folder-duotone";
 import React, { useRef, useState } from "react";
-import { useMutationData } from "@/hooks/useMutationData";
+import {
+  useMutationData,
+  userMutationDataState,
+} from "@/hooks/useMutationData";
 import { renameFolder } from "@/actions/workspace";
 import { Input } from "../ui/input";
 
@@ -31,10 +34,12 @@ export const Folder = ({ name, id, optimistic, count }: Props) => {
 
   const { mutate, isPending } = useMutationData(
     ["rename-folder"],
-    (data: { name: string }) => renameFolder(id, name),
+    (data: { name: string }) => renameFolder(id, data.name),
     "workspace-folder",
     Renamed,
   );
+
+  const { latestVariableName } = userMutationDataState(["rename-folder"]);
 
   const handleFolerclick = () => {
     if (onRename) return;
@@ -54,7 +59,7 @@ export const Folder = ({ name, id, optimistic, count }: Props) => {
         !folderCardRef.current.contains(e.target as Node | null)
       ) {
         if (inputRef.current.value) {
-          mutate({ name: inputRef.current.value });
+          mutate({ name: inputRef.current.value, id });
         } else {
           Renamed();
         }
@@ -89,7 +94,11 @@ export const Folder = ({ name, id, optimistic, count }: Props) => {
               onDoubleClick={handleDoubleClick}
               onClick={(e) => e.stopPropagation()}
             >
-              {name}
+              {latestVariableName &&
+              latestVariableName.status === "pending" &&
+              latestVariableName.variables.id === id
+                ? latestVariableName.variables.name
+                : name}
             </p>
           )}
           <span className="text-sm text-neutral-500">{count || 0} Videos</span>
