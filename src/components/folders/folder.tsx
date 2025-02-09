@@ -39,7 +39,7 @@ export const Folder = ({ name, id, optimistic, count }: Props) => {
     Renamed,
   );
 
-  const { latestVariableName } = userMutationDataState(["rename-folder"]);
+  const { latesrVariabel } = userMutationDataState(["rename-folder"]);
 
   const handleFolerclick = () => {
     if (onRename) return;
@@ -94,10 +94,10 @@ export const Folder = ({ name, id, optimistic, count }: Props) => {
               onDoubleClick={handleDoubleClick}
               onClick={(e) => e.stopPropagation()}
             >
-              {latestVariableName &&
-              latestVariableName.status === "pending" &&
-              latestVariableName.variables.id === id
-                ? latestVariableName.variables.name
+              {latesrVariabel &&
+              latesrVariabel.status === "pending" &&
+              latesrVariabel.variables.id === id
+                ? latesrVariabel.variables.name
                 : name}
             </p>
           )}
