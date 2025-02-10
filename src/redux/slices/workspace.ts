@@ -8,13 +8,13 @@ type intialStateProp = {
   }[];
 };
 
-const intialState: intialStateProp = {
+const initialState: intialStateProp = {
   workspaces: [],
 };
 
 export const WorkSpaces = createSlice({
   name: "workspace",
-  intialState: intialState,
+  initialState: initialState,
   reducers: {
     WORKSPACES: (state, action: PayloadAction<intialStateProp>) => {
       return { ...action.payload };
@@ -22,5 +22,5 @@ export const WorkSpaces = createSlice({
   },
 });
 
-export const { FOLDERS } = WorkSpaces.actions;
+export const { WORKSPACES } = WorkSpaces.actions;
 export default WorkSpaces.reducer;

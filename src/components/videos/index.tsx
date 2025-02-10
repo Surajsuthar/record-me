@@ -12,23 +12,6 @@ interface Props {
   workspaceId: string;
 }
 
-const video = {
-  User: {
-    firstname: "Alice",
-    lastname: "Johnson",
-    image: "https://example.com/profile.jpg",
-  },
-  id: "vid_123",
-  processing: false,
-  Folder: {
-    id: "folder_456",
-    name: "Programming",
-  },
-  createdAt: new Date("2024-02-08T14:00:00Z"),
-  title: "Understanding TypeScript Generics",
-  source: "https://example.com/video.mp4",
-};
-
 export const Videos = ({ folderId, videoKey, workspaceId }: Props) => {
   const { data: videoData } = useQueryData([videoKey], () =>
     getAllUserVideos(folderId),
@@ -50,12 +33,13 @@ export const Videos = ({ folderId, videoKey, workspaceId }: Props) => {
             : "grid grid-col-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5",
         )}
       >
-        {/* {videoStatus===200 ? (
-                videos.map((video) => ( <VideoCard/>))
-            ) : <p className="text-[#bdbdbd]">
-                No video in workspace
-                </p>} */}
-        <VideoCard workspaceId={workspaceId} {...video} />
+        {videoStatus === 200 ? (
+          videos.map((video) => (
+            <VideoCard workspaceId={workspaceId} {...video} key={video.id} />
+          ))
+        ) : (
+          <p className="text-[#bdbdbd]">No video in workspace</p>
+        )}
       </section>
     </div>
   );

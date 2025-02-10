@@ -13,13 +13,13 @@ type intialStateProp = {
   })[];
 };
 
-const intialState: intialStateProp = {
+const initialState: intialStateProp = {
   folders: [],
 };
 
 export const Folders = createSlice({
   name: "folder",
-  intialState,
+  initialState,
   reducers: {
     FOLDERS: (state, action: PayloadAction<intialStateProp>) => {
       return { ...action.payload };

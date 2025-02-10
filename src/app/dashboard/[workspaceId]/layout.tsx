@@ -64,7 +64,7 @@ export default async function Layout({ params, children }: props) {
         <Sidebar activeWorkSpaceId={workspaceId} />
         <div className="w-full pt-28 p-6 overflow-y-scroll overflow-x-hidden">
           <GlobleHeader workspace={hashAccess.data.workspace} />
-          <div className="mt-4">{children}</div>
+          <div className="mt-4 ml-[260]">{children}</div>
         </div>
       </div>
     </HydrationBoundary>

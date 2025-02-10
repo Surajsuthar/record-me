@@ -10,7 +10,7 @@ export const GlobleHeader = ({ workspace }: Props) => {
   const pathname = usePathname().split(`/dashboar/${workspace.id}`)[1];
 
   return (
-    <article className="flex flex-col gap-2">
+    <article className="flex flex-col gap-2 ml-[260]">
       <span className="text-sm text-[#707070]">
         {workspace.type.toLocaleUpperCase()}
       </span>

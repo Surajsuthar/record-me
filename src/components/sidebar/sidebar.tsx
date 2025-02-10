@@ -196,7 +196,7 @@ export const Sidebar = ({ activeWorkSpaceId }: Props) => {
   );
 
   return (
-    <div className="w-full">
+    <div className="full">
       {/* INFOBAR */}
       <InfoBar />
       {/* SHEETMOBILE AND DESKTOP */}
