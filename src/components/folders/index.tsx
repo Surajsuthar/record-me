@@ -48,7 +48,7 @@ export const Folders = ({ workspaceId }: Props) => {
       </div>
       <section
         className={cn(
-          status == 200 && "justify-center",
+          status == 200 && "justify-start",
           "flex items-center gap-4 overflow-x-auto w-full",
         )}
       >

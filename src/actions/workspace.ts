@@ -31,7 +31,7 @@ export const verifyAccessToWorkspace = async (workspaceId: string) => {
         ],
       },
     });
-    console.log("isUserInWorkSpace", isUserInWorkSpace);
+    // console.log("isUserInWorkSpace", isUserInWorkSpace);
 
     return {
       status: 200,
@@ -61,7 +61,7 @@ export const getWorkSpaceFolder = async (workSpaceId: string) => {
     });
 
     if (isFolderExist && isFolderExist.length > 0) {
-      return { staus: 200, data: isFolderExist };
+      return { status: 200, data: isFolderExist };
     }
 
     return { status: 400, data: [] };
@@ -108,7 +108,7 @@ export const getAllUserVideos = async (workSpaceId: string) => {
       return { status: 200, data: videos };
     }
 
-    return { status: 400 };
+    return { status: 400, data: "No videos found" };
   } catch (error) {
     return { status: 403 };
   }

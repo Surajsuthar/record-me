@@ -18,6 +18,8 @@ export const Videos = ({ folderId, videoKey, workspaceId }: Props) => {
   );
 
   const { status: videoStatus, data: videos } = videoData as VideosProps;
+
+  console.log("videos", videoData, videoStatus);
   return (
     <div className="flex flex-col gap-4 mt-4">
       <div className="flex items-center justify-between">

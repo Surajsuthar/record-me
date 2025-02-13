@@ -66,12 +66,16 @@ export const Sidebar = ({ activeWorkSpaceId }: Props) => {
         <SelectTrigger className="mt-16 text-white bg-transparent">
           <SelectValue placeholder="Select a workspace"></SelectValue>
         </SelectTrigger>
-        <SelectContent className="bg-gray-600 backdrop-blur-xl">
+        <SelectContent className="bg-[#252525] backdrop-blur-xl">
           <SelectGroup className="gap-x-1">
             <SelectLabel>Workspace</SelectLabel>
             <Separator />
             {workspace.workspace.map((workspace) => (
-              <SelectItem key={workspace.id} value={workspace.id}>
+              <SelectItem
+                className="my-1"
+                key={workspace.id}
+                value={workspace.id}
+              >
                 {workspace.name}
               </SelectItem>
             ))}
@@ -80,7 +84,7 @@ export const Sidebar = ({ activeWorkSpaceId }: Props) => {
                 (workspace) =>
                   workspace.WorkSpace && (
                     <SelectItem
-                      className="mt-1"
+                      className="p-2"
                       value={workspace.WorkSpace.id}
                       key={workspace.WorkSpace.id}
                     >
