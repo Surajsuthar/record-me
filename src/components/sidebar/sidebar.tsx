@@ -26,6 +26,8 @@ import { Button } from "@/components/ui/button";
 import { Loader } from "../loader";
 import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
 import { InfoBar } from "../infobar";
+import { useDispatch } from "react-redux";
+import { WORKSPACES } from "@/redux/slices/workspace";
 
 interface Props {
   activeWorkSpaceId: string;
@@ -35,6 +37,7 @@ export const Sidebar = ({ activeWorkSpaceId }: Props) => {
   //upgrade
   const router = useRouter();
   const pathname = usePathname();
+  const disPatch = useDispatch();
 
   const onChangeActiveWorkSpcae = (value: string) => {
     router.push(`/dashboard/${value}`);
@@ -52,6 +55,10 @@ export const Sidebar = ({ activeWorkSpaceId }: Props) => {
   const currentWorkspace = workspace.workspace.find(
     (s) => s.id === activeWorkSpaceId,
   );
+
+  if (isFetched && workspace) {
+    disPatch(WORKSPACES({ workspaces: workspace.workspace }));
+  }
 
   const sideBarOptions = (
     <div className="bg-[#111111] flex-none fixed p-4 h-full w-[250px] flex flex-col gap-4 items-center overflow-y-auto">

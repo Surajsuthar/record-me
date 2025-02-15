@@ -56,3 +56,27 @@ export type VideosProps = {
     source: string;
   }[];
 };
+
+export type VideoProps = {
+  status: number;
+  data: {
+    User: {
+      firstname: string | null;
+      lastname: string | null;
+      image: string | null;
+      clearkId: string | null;
+      trial: string | null;
+      subscription: {
+        plan: "FREE" | "PRO";
+      } | null;
+    } | null;
+    title: string;
+    description: string | null;
+    source: string;
+    view: number;
+    createdAt: Date;
+    processing: boolean;
+    summary: string;
+  };
+  author: boolean;
+};

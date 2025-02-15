@@ -7,7 +7,7 @@ import { moveVideoSchema } from "@/components/forms/type";
 
 export const useMoveVideos = (videoId: string, currentWorkspace: string) => {
   const { folders } = useAppSelector((state) => state.FolderReducer);
-  const { workspace } = useAppSelector((state) => state.WorkspaceReducer);
+  const { workspaces } = useAppSelector((state) => state.WorkspaceReducer);
 
   //fetching state
   const [isFetching, setIsFetching] = useState(false);
@@ -62,7 +62,7 @@ export const useMoveVideos = (videoId: string, currentWorkspace: string) => {
     register,
     isPending,
     folders,
-    workspace,
+    workspaces,
     isFetching,
     isFolder,
   };
