@@ -14,7 +14,8 @@ interface Props {
   };
 }
 
-export default async function ({ params: { folderId, workspaceId } }: Props) {
+export default async function ({ params }: Props) {
+  const { folderId, workspaceId } = await params;
   const query = new QueryClient();
   await query.prefetchQuery({
     queryKey: ["folder-videos"],

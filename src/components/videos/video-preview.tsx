@@ -9,6 +9,8 @@ import { truncateString } from "@/lib/utils";
 import { Download } from "lucide-react";
 import { TabMenu } from "../tabs";
 import { AiTools } from "../ai-tools";
+import { VideoTranscript } from "../video-transcript";
+import { TabsContent } from "../ui/tabs";
 
 interface Props {
   videoId: string;
@@ -17,6 +19,7 @@ interface Props {
 export const VideoPreview = ({ videoId }: Props) => {
   const router = useRouter();
   //wip : notify on first view
+  //wip : setup activity
   const { data } = useQueryData(["preview-video"], () =>
     getPreviewVideo(videoId),
   );
@@ -95,7 +98,15 @@ export const VideoPreview = ({ videoId }: Props) => {
             defaultvalue="Ai Tools"
             triggers={["Ai Tools", "Transcript", "Activity"]}
           >
-            <AiTools />
+            <AiTools
+              plan={video.User?.subscription?.plan!}
+              videoId={videoId}
+              trail={video.User?.trial!}
+            />
+            <VideoTranscript transcript={video.description} />
+            <TabsContent value="Activity">
+              Make change to your Account
+            </TabsContent>
           </TabMenu>
         </div>
       </div>
