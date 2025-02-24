@@ -11,6 +11,7 @@ import { TabMenu } from "../tabs";
 import { AiTools } from "../ai-tools";
 import { VideoTranscript } from "../video-transcript";
 import { TabsContent } from "../ui/tabs";
+import { Activities } from "../activities";
 
 interface Props {
   videoId: string;
@@ -104,9 +105,10 @@ export const VideoPreview = ({ videoId }: Props) => {
               trail={video.User?.trial!}
             />
             <VideoTranscript transcript={video.description} />
-            <TabsContent value="Activity">
-              Make change to your Account
-            </TabsContent>
+            <Activities
+              author={video.User?.firstname as string}
+              videoId={videoId}
+            />
           </TabMenu>
         </div>
       </div>

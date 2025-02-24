@@ -65,7 +65,7 @@ export type VideoProps = {
       lastname: string | null;
       image: string | null;
       clearkId: string | null;
-      trial: string | null;
+      trial: boolean | null;
       subscription: {
         plan: "FREE" | "PRO";
       } | null;
