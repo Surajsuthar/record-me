@@ -261,3 +261,31 @@ export const enableFirstView = async (state: boolean) => {
     return { status: 401 };
   }
 };
+
+export const createCommentAndReply = async (
+  userId: string,
+  comment: string,
+  videoId: string,
+  commentId?: string | undefined,
+) => {
+  try {
+    const reply = await db.comment.update({
+      where: {
+        id: commentId,
+      },
+      data: {
+        reply: {
+          create: {
+            comment,
+            userId,
+            videoId,
+          },
+        },
+      },
+    });
+
+    if (reply) {
+      return { status: 200, data: "replay posted" };
+    }
+  } catch (error) {}
+};
