@@ -12,7 +12,8 @@ export const Activities = ({ videoId, author }: Props) => {
       value="Activity"
       className="p-5 bg-[#1d1d1d] rounded-xl flex flex-col gap-y-5"
     >
-      <CommentForm />
+      <CommentForm videoId={videoId} author={author} />
+      <CommentCard />
     </TabsContent>
   );
 };

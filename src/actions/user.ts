@@ -287,5 +287,46 @@ export const createCommentAndReply = async (
     if (reply) {
       return { status: 200, data: "replay posted" };
     }
-  } catch (error) {}
+
+    const newComment = await db.video.update({
+      where: {
+        id: videoId,
+      },
+      data: {
+        Comment: {
+          create: {
+            comment,
+            userId,
+          },
+        },
+      },
+    });
+
+    if (newComment) return { status: 200, data: "new comment added" };
+  } catch (error) {
+    return { status: 400 };
+  }
+};
+
+export const getUserProfile = async () => {
+  try {
+    const user = await currentUser();
+    if (!user) {
+      return { status: 404 };
+    }
+
+    const profileIdAndImage = await db.user.findUnique({
+      where: {
+        clerkid: user.id,
+      },
+      select: {
+        image: true,
+        id: true,
+      },
+    });
+
+    if (profileIdAndImage) return { status: 200, data: profileIdAndImage };
+  } catch (error) {
+    return { status: 400 };
+  }
 };

@@ -2,9 +2,10 @@ import { creatteCommentFrom } from "@/components/forms/comment-form/schema";
 import { useMutationData } from "./useMutationData";
 import { useQueryData } from "./useQueryData";
 import { useZodFrom } from "./useZodForm";
+import { createCommentAndReply, getUserProfile } from "@/actions/user";
 
 export const useVideoComment = (videoId: string, commentId: string) => {
-  const { data } = useQueryData(["user-profile"], () => {});
+  const { data } = useQueryData(["user-profile"], getUserProfile);
   const { status, data: user } = data as {
     status: number;
     data: { id: string; image: string };
@@ -22,4 +23,6 @@ export const useVideoComment = (videoId: string, commentId: string) => {
     creatteCommentFrom,
     mutate,
   );
+
+  return { register, onFormSubmit, errors, reset, isPending };
 };

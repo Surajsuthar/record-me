@@ -80,3 +80,23 @@ export type VideoProps = {
   };
   author: boolean;
 };
+
+export type CommetReplyProps = {
+  id: string;
+  comment: string;
+  commetId: string;
+  createdAt: Date;
+  userId: string;
+  videoId: string;
+  User: {
+    id: string;
+    email: string;
+    firstname: string;
+    lastname: string;
+    createdAt: Date;
+    clearkid: string;
+    image: string | null;
+    trail: boolean;
+    firstview: boolean;
+  } | null;
+};
