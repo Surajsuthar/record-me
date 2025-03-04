@@ -269,25 +269,27 @@ export const createCommentAndReply = async (
   commentId?: string | undefined,
 ) => {
   try {
-    const reply = await db.comment.update({
-      where: {
-        id: commentId,
-      },
-      data: {
-        reply: {
-          create: {
-            comment,
-            userId,
-            videoId,
+    if(commentId) {
+      const reply = await db.comment.update({
+        where: {
+          id: commentId,
+        },
+        data: {
+          reply: {
+            create: {
+              comment,
+              userId,
+              videoId,
+            },
           },
         },
-      },
-    });
-
-    if (reply) {
-      return { status: 200, data: "replay posted" };
+      });
+  
+      if (reply) {
+        return { status: 200, data: "replay posted" };
+      }
+  
     }
-
     const newComment = await db.video.update({
       where: {
         id: videoId,
@@ -330,3 +332,26 @@ export const getUserProfile = async () => {
     return { status: 400 };
   }
 };
+
+export const getVideoComments = async (Id: string) => {
+  try {
+    const comments = await db.comment.findMany({
+      where: {
+        OR: [{ videoId: Id }, { commentId: Id }],
+        commentId: null,
+      },
+      include: {
+        reply: {
+          include: {
+            User: true,
+          },
+        },
+        User: true,
+      },
+    })
+
+    return { status: 200, data: comments }
+  } catch (error) {
+    return { status: 400 }
+  }
+}

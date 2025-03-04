@@ -1,3 +1,4 @@
+import { getVideoComments } from "@/actions/user";
 import { getPreviewVideo } from "@/actions/workspace";
 import { VideoPreview } from "@/components/videos/video-preview";
 import {
@@ -16,6 +17,11 @@ const VideoPage = async ({ params: { videoId } }: Props) => {
     queryKey: ["preview-video"],
     queryFn: () => getPreviewVideo(videoId),
   });
+
+  await query.prefetchQuery({
+      queryKey: ['video-comment'],
+      queryFn: () => getVideoComments(videoId)
+    })
 
   return (
     <HydrationBoundary state={dehydrate(query)}>

@@ -1,4 +1,4 @@
-import { getUserProfile } from "@/actions/user";
+import { getUserProfile, getVideoComments } from "@/actions/user";
 import { getPreviewVideo } from "@/actions/workspace";
 import { VideoPreview } from "@/components/videos/video-preview";
 import {
@@ -25,6 +25,11 @@ export default async function VideoPage({ params: { videoId } }: Props) {
     queryKey: ["user-profile"],
     queryFn: getUserProfile,
   });
+
+  await query.prefetchQuery({
+    queryKey: ['video-comment'],
+    queryFn: () => getVideoComments(videoId)
+  })
 
   return (
     <HydrationBoundary state={dehydrate(query)}>
