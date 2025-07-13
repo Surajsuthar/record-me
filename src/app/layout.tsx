@@ -6,7 +6,6 @@ import { ThemeProvider } from "@/components/theme/theme-provider";
 import { ReactQueryProvider } from "@/query/indes";
 import { ReduxProvider } from "@/redux/Provider";
 
-const manrope = Manrope({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Record-me",
@@ -21,10 +20,10 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
-        <body className={`${manrope.className} bg-[#171717]`}>
+        <body className={``}>
           <ThemeProvider
             attribute="class"
-            defaultTheme="system"
+            defaultTheme="dark"
             enableSystem
             disableTransitionOnChange
           >

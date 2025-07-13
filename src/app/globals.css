@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+html,
+body {
+  font-family: 'Geist Mono', monospace
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
