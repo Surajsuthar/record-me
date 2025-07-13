@@ -6,6 +6,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { User } from "lucide-react";
 import { Button } from "../ui/button";
 import { Loader } from "../loader";
+import { inviteuser } from "@/actions/user";
 
 interface Props {
   workspaceId: string;
@@ -19,12 +20,11 @@ export const Search = ({ workspaceId }: Props) => {
 
   // sennfing invitation
   // invite button in ui
-  // const { mutate, isPending } = useMutationData(
-  //     ['invite-member'],
-  //     (data: { recieverId: string, email: string}) => {
-
-  //     }
-  // )
+  const { mutate, isPending } = useMutationData(
+      ['invite-member'],
+      (data: { recieverId: string, email: string}) => inviteuser(workspaceId, data.recieverId, data.email)
+  )
+  
   return (
     <div className="flex flex-col gap-y-5">
       <Input
@@ -61,16 +61,21 @@ export const Search = ({ workspaceId }: Props) => {
                   {user.firstname} {user.lastname}
                 </h3>
                 <p className=" lowercase text-sm bg-black px-2 rounded-lg text-white">
-                  {user.subscription.plan}
+                  {user?.subscription ? user?.subscription.plan: ''}
                 </p>
               </div>
               <div className="flex-1 flex justify-end items-end">
                 <Button
-                  onClick={() => {}}
+                  onClick={() => {
+                    mutate({
+                      recieverId: user.id,
+                      email: user.email,
+                    });
+                  }}
                   variant="default"
                   className="w-5/12 font-bold"
                 >
-                  <Loader state={false} color="#000">
+                  <Loader state={isPending} color="#000">
                     Invite
                   </Loader>
                 </Button>

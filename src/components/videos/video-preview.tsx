@@ -12,18 +12,23 @@ import { AiTools } from "../ai-tools";
 import { VideoTranscript } from "../video-transcript";
 import { TabsContent } from "../ui/tabs";
 import { Activities } from "../activities";
+import { sendMailForFirstView } from "@/actions/user";
+import { useEffect } from "react";
 
 interface Props {
   videoId: string;
 }
 
 export const VideoPreview = ({ videoId }: Props) => {
-  const router = useRouter();
+
   //wip : notify on first view
   //wip : setup activity
+  const router = useRouter();
   const { data } = useQueryData(["preview-video"], () =>
     getPreviewVideo(videoId),
   );
+
+  const notifyFirstView = async () => sendMailForFirstView(videoId)
 
   const { data: video, status, author } = data as VideoProps;
   if (status !== 200) router.push("/");
@@ -31,6 +36,16 @@ export const VideoPreview = ({ videoId }: Props) => {
   const daysAgo = Math.floor(
     (new Date().getTime() - video.createdAt.getTime()) / (24 * 60 * 60 * 1000),
   );
+
+  useEffect(() => {
+    if(video?.view === 0) {
+      notifyFirstView()
+    }
+    return () => {
+      notifyFirstView()
+    }
+  }, [])
+
   return (
     <div className="grid grid-cols-1 xl:grid-cols-3 p-10 lg:px-20 lg:py-10 overflow-y-auto gap-5">
       <div className="flex flex-col lg:col-span-2 gap-y-10">

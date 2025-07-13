@@ -59,6 +59,27 @@ export const CommentCard = ({
         >
         </CommentForm>
       )}
+      {
+        reply.length > 0 && (
+          <div className="flex flex-col gap-y-10 mt-5">
+            { reply.map((r) => (
+              <CommentCard
+              isReply
+              reply={[]}
+              comment={r.comment}
+              commentId={r.commetId}
+              videoId={videoId}
+              key={r.id}
+              author={{
+                image: r.User?.image!,
+                firstname: r.User?.firstname!,
+                lastname: r.User?.lastname!
+              }}
+              />
+            )) }
+          </div>
+        )
+      }
     </Card>
   );
 };
