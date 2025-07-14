@@ -23,12 +23,11 @@ interface props {
 export default async function Layout({ params, children }: props) {
   const { workspaceId } = await params;
   const auth = await onAuthenticateUse();
+  
   if (!auth.user?.workspace) return redirect("/auth/sign-in");
   if (!auth.user.workspace.length) redirect("/auth/sign-in");
 
-  // console.log("workspaceId", workspaceId);
   const hashAccess = await verifyAccessToWorkspace(workspaceId);
-  // console.log("hashAccess", hashAccess);
 
   if (hashAccess.status !== 200) {
     redirect(`/dashboard/${auth.user?.workspace[0].id}`);

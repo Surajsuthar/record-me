@@ -18,20 +18,20 @@ export const SidebarItem = ({
   notification,
 }: Props) => {
   return (
-    <li className="cursor-pointer my-[5px]">
+    <li className="cursor-pointer my-[5px] w-full">
       <Link
         href={href}
         className={cn(
-          "flex items-center justify-center group rounded-lg bg-[#1D1D1D]",
-          selected ? "bg-[#1d1d1d]" : "",
+          "flex items-center justify-between group rounded-lg w-full",
+          selected ? "bg-neutral-200" : "",
         )}
       >
-        <div className="flex items-center justify-start gap-2 transition-all p-[5px] cursor-pointer">
+        <div className="flex items-center justify-between gap-3 transition-all p-[5px] cursor-pointer">
           {icon}
           <span
             className={cn(
-              "font-medium group-hover:text-[#9d9d9d] transition-all truncate w-32 ",
-              selected ? "text-[#9d9d9d]" : "text-[#545454s]",
+              "font-medium group-hover:text-neutral-800 transition-all truncate w-32 text-sm",
+              selected ? "text-neutral-800" : "text-neutral-500",
             )}
           >
             {title}

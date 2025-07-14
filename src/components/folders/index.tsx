@@ -46,11 +46,11 @@ export const Folders = ({ workspaceId }: Props) => {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
           <FolderDuotone />
-          <h2 className="text-[#BDBDBD] text-xl">Folder</h2>
+          <h2 className="text-sm">Folder</h2>
         </div>
         <div className="flex items-center gap-4">
           <FolderDuotone />
-          <h2 className="text-[#BDBDBD] text-xl">See all</h2>
+          <h2 className="text-sm">See all</h2>
         </div>
       </div>
       <section

@@ -2,9 +2,8 @@
 
 import { db } from "@/lib/db";
 import { currentUser } from "@clerk/nextjs/server";
-import { tree } from "next/dist/build/templates/app-page";
 import nodemailer from "nodemailer";
-import { use } from "react";
+import Stripe from "stripe";
 
 export const sendMail = async (
   to: string,
@@ -613,4 +612,45 @@ export const sendMailForFirstView = async (videoId: string) => {
   } catch (error) {
     return { status: 400, data: "email not sent" }
   }
+}
+
+export const comeleteSubsripation = async (session_id: string) => {
+  try {
+    const user = await currentUser()
+    if(!user) {
+      return { status: 404 }
+    }
+
+    const stripe = new Stripe(process.env.STRIPE_CLIENT_SECRET as string)
+    
+    const session = await stripe.checkout.sessions.retrieve(session_id)
+  
+    if(session) {
+      const coustomer = await db.user.update({
+        where: {
+          clerkid: user.id
+        },
+        data: {
+          subscription: {
+            update: {
+              data: {
+                customerId: session.customer as string,
+                plan: "PRO",
+              }
+            }
+          }
+        }
+      })
+      
+      if(coustomer) {
+        return {
+          status: 200,
+        }
+      }
+    }
+    return { status: 404 }
+  } catch (error) {
+    return { status: 400 }
+  }
+  
 }

@@ -30,7 +30,7 @@ export const Search = ({ workspaceId }: Props) => {
       <Input
         onChange={onSearchQuery}
         value={query}
-        className="bg-transparent border-2 outline-none"
+        className=""
         placeholder="Search for your user..."
         type="text"
       />
@@ -39,7 +39,7 @@ export const Search = ({ workspaceId }: Props) => {
           <Skeleton className="w-full h-8 rounded-xl" />
         </div>
       ) : !onUsers ? (
-        <p className="text-center text-sm text-[#a4a4a4]"> No user found </p>
+        <p className="text-center text-sm"> No user found </p>
       ) : (
         <div>
           {onUsers.map((user) => (
@@ -56,11 +56,11 @@ export const Search = ({ workspaceId }: Props) => {
                   <User />
                 </AvatarFallback>
               </Avatar>
-              <div className="flex flex-col items-start">
-                <h3 className="font-bold text-lg capitalize">
+              <div className="flex flex-col gap-y-1 items-start">
+                <h3 className="font-bold text-sm capitalize">
                   {user.firstname} {user.lastname}
                 </h3>
-                <p className=" lowercase text-sm bg-black px-2 rounded-lg text-white">
+                <p className="lowercase text-sm bg-black px-2 py-1 rounded-lg text-white">
                   {user?.subscription ? user?.subscription.plan: ''}
                 </p>
               </div>
@@ -72,8 +72,8 @@ export const Search = ({ workspaceId }: Props) => {
                       email: user.email,
                     });
                   }}
-                  variant="default"
-                  className="w-5/12 font-bold"
+                  variant={"default"}
+                  className="w-5/12"
                 >
                   <Loader state={isPending} color="#000">
                     Invite

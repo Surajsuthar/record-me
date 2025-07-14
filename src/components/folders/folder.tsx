@@ -73,7 +73,7 @@ export const Folder = ({ name, id, optimistic, count }: Props) => {
       onClick={handleFolerclick}
       className={cn(
         optimistic && "opacity-60",
-        "flex hover:bg-neutral-800 cursor-pointer transition duration-150 items-center gap-2 justify-between min-w-[250px] py-4 px-4 rounded-lg  border-[1px]",
+        "flex hover:bg-neutral-500/60 cursor-pointer transition duration-150 items-center gap-2 justify-between min-w-[250px] py-4 px-4 rounded-lg  border-[1px]",
       )}
     >
       <Loader state={false}>
@@ -85,7 +85,7 @@ export const Folder = ({ name, id, optimistic, count }: Props) => {
               }
               autoFocus
               placeholder={name}
-              className="border-none underline text-base w-full outline-none text-neutral-300 bg-transparent p-0"
+              className="border-none underline text-black w-full outline-none bg-transparent p-0"
               ref={inputRef}
             />
           ) : (

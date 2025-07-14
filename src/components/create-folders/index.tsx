@@ -12,7 +12,7 @@ export const CreateFolders = ({ workspaceId }: Props) => {
 
   return (
     <Button
-      className="bg-[#1d1d1d] text-[#707070] flex items-center gap-2 py-6 px-2 rounded-lg"
+      className="flex items-center gap-2 py-6 px-2 rounded-lg"
       onClick={onCreateNewFolder}
     >
       <FolderPlusDuotine />

@@ -20,7 +20,7 @@ import { Search } from "../search";
 import { MENU_ITEMS } from "@/constants";
 import { SidebarItem } from "./sidebar-item";
 import { getNotifications } from "@/actions/user";
-import { WorkSpacePlacehold } from "./workspace-placeholder";
+import { WorkSpacePlaceholder } from "./workspace-placeholder";
 import { GlobalCard } from "../global-card";
 import { Button } from "@/components/ui/button";
 import { Loader } from "../loader";
@@ -28,6 +28,7 @@ import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
 import { InfoBar } from "../infobar";
 import { useDispatch } from "react-redux";
 import { WORKSPACES } from "@/redux/slices/workspace";
+import { PaymentButton } from "../payment-button";
 
 interface Props {
   activeWorkSpaceId: string;
@@ -61,19 +62,19 @@ export const Sidebar = ({ activeWorkSpaceId }: Props) => {
   }
 
   const sideBarOptions = (
-    <div className="bg-[#111111] flex-none fixed p-4 h-full w-[250px] flex flex-col gap-4 items-center overflow-y-auto">
-      <div className="bg-[#111111] p-4 gap-2 flex justify-center items-center mb-4 absolute top-0 left-0 right-0">
-        <Image src="/logo.svg" height={30} width={30} alt="logo" />
-        <p className="text-xl text-white">Record me</p>
+    <div className="flex-none fixed border shadow-md p-4 h-full w-[250px] flex flex-col gap-4 items-center overflow-y-auto">
+      <div className="p-4 gap-4 z-30 flex justify-center items-center mb-4 absolute top-0 left-0 right-0">
+        <Image src="/logo.svg" height={24} width={24} alt="logo" />
+        <p className="text-xl font-bold">Record me</p>
       </div>
       <Select
         defaultValue={activeWorkSpaceId}
         onValueChange={onChangeActiveWorkSpcae}
       >
-        <SelectTrigger className="mt-16 text-white bg-transparent">
+        <SelectTrigger className="mt-16 bg-transparent">
           <SelectValue placeholder="Select a workspace"></SelectValue>
         </SelectTrigger>
-        <SelectContent className="bg-[#252525] backdrop-blur-xl">
+        <SelectContent className="backdrop-blur-xl">
           <SelectGroup className="gap-x-1">
             <SelectLabel>Workspace</SelectLabel>
             <Separator />
@@ -109,11 +110,11 @@ export const Sidebar = ({ activeWorkSpaceId }: Props) => {
             title="Invite to workspace"
             trigger={
               <span
-                className="text-sm cursor-pointer flex items-center justify-center bg-neutral-800/90 hover:bg-neutral-800/60
-            w-full rounded-sm p-[5px] gap-2"
+                className="text-sm cursor-pointer flex items-center justify-center
+                  w-full rounded-sm border p-[5px] gap-3"
               >
-                <PlusCircle className="text-neutral-800/90 fill-neutral-500" />
-                <span className="text-neutral-400 font-semibold text-sm">
+                <PlusCircle className="" />
+                <span className="font-semibold text-sm">
                   Invite to workspace
                 </span>
               </span>
@@ -123,7 +124,7 @@ export const Sidebar = ({ activeWorkSpaceId }: Props) => {
             <Search workspaceId={activeWorkSpaceId} />
           </Model>
         )}
-      <p className="w-full text-[#9d9d9d] font-bold mt-4">Menu</p>
+      <p className="w-full font-bold mt-2">Menu</p>
       <nav className="w-full">
         <ul>
           {menuItem.map((item) => (
@@ -144,10 +145,10 @@ export const Sidebar = ({ activeWorkSpaceId }: Props) => {
         </ul>
       </nav>
       <Separator className="w-4/5" />
-      <p className="w-full text-[#9d9d9d] font-bold mt-4"> Workspace </p>
+      <p className="w-full font-bold mt-2"> Workspace </p>
       {workspace.workspace.length === 1 && workspace.members.length === 0 && (
         <div className="w-full mt-[-10px]">
-          <p className="text-[#9d9d9d] font-medium text-sm">
+          <p className="font-medium text-sm">
             {workspace.subscription?.plan === "FREE"
               ? "Upgrade to create workspace"
               : "No workspace"}
@@ -155,7 +156,7 @@ export const Sidebar = ({ activeWorkSpaceId }: Props) => {
         </div>
       )}
       <nav className="w-full">
-        <ul className="h-[140px] overflow-auto overflow-x-hidden fade-layer">
+        <ul className="h-[140px] overflow-auto overflow-x-hidden">
           {workspace.workspace.length > 0 &&
             workspace.workspace.map(
               (item) =>
@@ -167,9 +168,9 @@ export const Sidebar = ({ activeWorkSpaceId }: Props) => {
                     notification={0}
                     key={item.id}
                     icon={
-                      <WorkSpacePlacehold>
+                      <WorkSpacePlaceholder>
                         {item.name.charAt(0)}
-                      </WorkSpacePlacehold>
+                      </WorkSpacePlaceholder>
                     }
                   />
                 ),
@@ -183,9 +184,9 @@ export const Sidebar = ({ activeWorkSpaceId }: Props) => {
                 notification={0}
                 key={item.WorkSpace.id}
                 icon={
-                  <WorkSpacePlacehold>
+                  <WorkSpacePlaceholder>
                     {item.WorkSpace.name.charAt(0)}
-                  </WorkSpacePlacehold>
+                  </WorkSpacePlaceholder>
                 }
               />
             ))}
@@ -197,9 +198,7 @@ export const Sidebar = ({ activeWorkSpaceId }: Props) => {
           title="Upgrade to pro"
           description="Unlock AI features like transcription, AI summary, and more."
           footer={
-            <Button className="text-sm bg-[#9d9d9d] w-full">
-              <Loader state={false}>Upgrade</Loader>
-            </Button>
+            <PaymentButton/>
           }
         />
       )}
@@ -208,9 +207,7 @@ export const Sidebar = ({ activeWorkSpaceId }: Props) => {
 
   return (
     <div className="full">
-      {/* INFOBAR */}
       <InfoBar />
-      {/* SHEETMOBILE AND DESKTOP */}
       <div className="md:hidden fixed my-4">
         <Sheet>
           <SheetTrigger asChild className="ml-2">

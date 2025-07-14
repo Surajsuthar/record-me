@@ -11,7 +11,7 @@ export const CreateWorkspace = () => {
     ["user-worksapces"],
     getWorkspaces,
   );
-  console.log("data", data);
+
   const { data: plan } = data as {
     status: number;
     data: {
@@ -31,7 +31,7 @@ export const CreateWorkspace = () => {
         title="Create Workspace"
         description="Workspaces helps you collaborate with team members. You are assigned a default personal workspace where you can share videos in private with yourself."
         trigger={
-          <Button className="bg-[#d1d1d1] text-[#707070] flex items-center gap-2 py-6 px-4 rounded-2xl">
+          <Button className="flex items-center gap-2 py-6 px-4 rounded-2xl">
             <FolderPlusDuotine />
             Create a workspace
           </Button>
